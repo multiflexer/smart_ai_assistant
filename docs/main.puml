@@ -1,0 +1,29 @@
+@startuml
+skinparam componentStyle uml2
+actor Клиент as Client
+actor Администратор as Admin
+component RequestsAPI #99c7f7
+component SenderService #ff981a
+
+component PythonETL #84ba80
+
+queue KafkaTopic1 #f7adad
+queue KafkaTopic2 #f7adad
+database ClickHouseCluster #c92222
+database Postgres #6e6e6e
+
+package "Model replicas" #c5f0dc{
+component ModelReplica1
+component ModelReplica2
+}
+
+Client -> RequestsAPI: Отправка запроса с сайта клиента
+RequestsAPI -down-> KafkaTopic1: Отправка текста запроса в Kafka-топик для не классифицированных запросов
+KafkaTopic1 -down-> ModelReplica1: Потребление сообщения репликой модели
+ModelReplica1 -down-> KafkaTopic2: Потребление сообщения репликой модели
+KafkaTopic2 -down-> PythonETL: Старт ETL процесса по переносу данных в clickhouse
+PythonETL -right-> ClickHouseCluster: Сохранение результата в Clickhouse
+ClickHouseCluster -down-> SenderService: Отправка сообщений администраторам ресурса
+SenderService <-left-> Postgres: Обработка метаинформации о ходе отправки
+SenderService -down-> Admin: Отправка текста запроса администратору
+@enduml
