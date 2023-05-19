@@ -8,11 +8,11 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from aiokafka import AIOKafkaProducer
 from redis import Redis
 
-from src.api.v1.schemas import ModelIn
-from src.db.kafka import get_kafka_producer
-from src.db.redis_storage import get_redis_storage
-from src.config.settings import config
-from src.models.payload import Payload
+from api.v1.schemas import ModelIn
+from db.kafka import get_kafka_producer
+from db.redis_storage import get_redis_storage
+from config.settings import config
+from models.payload import Payload
 
 router = APIRouter()
 

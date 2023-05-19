@@ -3,27 +3,33 @@ skinparam componentStyle uml2
 actor Клиент as Client
 actor Администратор as Admin
 component RequestsAPI #99c7f7
-component SenderService #ff981a
-
-component PythonETL #84ba80
 
 queue KafkaTopic1 #f7adad
 queue KafkaTopic2 #f7adad
 database ClickHouseCluster #c92222
 database Postgres #6e6e6e
 
-package "Model replicas" #c5f0dc{
+package "Model replicas (consumer group)" #c5f0dc{
 component ModelReplica1
 component ModelReplica2
+}
+package "Sender replicas (consumer group)" #c5f0dc{
+component SenderService1 #ff981a
+component SenderService2 #ff981a
+}
+
+package "Python ETL replicas (consumer group)" #c5f0dc{
+component PythonETL1 #84ba80
+component PythonETL2 #84ba80
 }
 
 Client -> RequestsAPI: Отправка запроса с сайта клиента
 RequestsAPI -down-> KafkaTopic1: Отправка текста запроса в Kafka-топик для не классифицированных запросов
 KafkaTopic1 -down-> ModelReplica1: Потребление сообщения репликой модели
 ModelReplica1 -down-> KafkaTopic2: Потребление сообщения репликой модели
-KafkaTopic2 -down-> PythonETL: Старт ETL процесса по переносу данных в clickhouse
-PythonETL -right-> ClickHouseCluster: Сохранение результата в Clickhouse
-ClickHouseCluster -down-> SenderService: Отправка сообщений администраторам ресурса
-SenderService <-left-> Postgres: Обработка метаинформации о ходе отправки
-SenderService -down-> Admin: Отправка текста запроса администратору
+KafkaTopic2 -down-> PythonETL1: Старт ETL процесса по переносу данных в clickhouse
+KafkaTopic2 -down-> SenderService1: Отправка сообщений администраторам ресурса
+PythonETL1 -down-> ClickHouseCluster: Сохранение результата в Clickhouse
+SenderService2 <-down-> Postgres: Обработка метаинформации
+SenderService2 -down-> Admin: Отправка текста запроса администратору
 @enduml
