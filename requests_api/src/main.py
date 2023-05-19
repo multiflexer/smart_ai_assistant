@@ -4,9 +4,9 @@ from fastapi.responses import ORJSONResponse
 from aiokafka import AIOKafkaProducer
 from redis import Redis
 
-from src.api import support_requests
-from src.config.settings import config
-from src.db import kafka, redis_storage
+from api.v1 import support_requests
+from config.settings import config
+from db import kafka, redis_storage
 
 app = FastAPI(
     title='Support requests pusher',
