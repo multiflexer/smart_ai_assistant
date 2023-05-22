@@ -15,8 +15,8 @@ The repository contains the code for the data preprocessing, model fine-tuning a
 <th>Base model</th>
 <th>Accuracy</th>
 </tr>
-<tr><td>Sequental</td><td>Sequental</td>0.98</tr>
-<tr><td>SVC</td><td>Sequental</td>0.91</tr>
+<tr><td>Sequental</td><td>0.98</td></tr>
+<tr><td>SVC</td><td>0.91</td></tr>
 <tr><td>Logistic regression</td><td>0.90</td></tr>
 </table>
 
