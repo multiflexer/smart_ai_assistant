@@ -1,38 +1,26 @@
-# Умный AI ассистент для чат-бота технической поддержки
+# Automatic Ticket Classification
 
-Этот проект представляет собой умного AI ассистента для чат-бота технической поддержки. Он поможет вам решить проблемы, связанные с использованием вашего продукта или услуги.
+RestFull API service that can automatically classify customer complaints based on the products and services that the ticket mentions
 
-## Описание
+The repository contains the code for the data preprocessing, model fine-tuning and evaluation of three transformers adapted for the category classification task:
 
-AI ассистент использует машинное обучение и нейронные сети для анализа текстовых запросов пользователей и предоставления им наиболее релевантных ответов. Он также может обучаться на основе предыдущих обращений пользователей и улучшать свою работу с течением времени.
+1. Sequental based model
+2. SVC based model
+3. Logistic regression based model
 
-## Установка
+## Results
 
-Для установки и запуска проекта необходимо выполнить следующие шаги:
+<table>
+<tr>
+<th>Base model</th>
+<th>Accuracy</th>
+</tr>
+<tr><td>Sequental</td><td>Sequental</td>0.98</tr>
+<tr><td>SVC</td><td>Sequental</td>0.91</tr>
+<tr><td>Logistic regression</td><td>0.90</td></tr>
+</table>
 
-1. Склонировать репозиторий:
+## Authors
 
-
-git clone https://github.com/multiflexer/smart_ai_assistant
-
-
-2. Установить необходимые зависимости:
-
-
-pip install -r requirements.txt
-
-
-3. Запустить приложение:
-
-
-python app.py
-
-
-## Использование
-
-Чтобы использовать AI ассистента, вам необходимо подключить его к вашему чат-боту технической поддержки. Для этого вам нужно будет настроить соответствующий API и передавать ему текстовые запросы пользователей.
-
-## Авторы
-
-* Константин Горбунов - Разработчик
-* Илья Малоглазов - Разработчик
+* Konstantin Gorbunov
+* Ilya Maloglazov
